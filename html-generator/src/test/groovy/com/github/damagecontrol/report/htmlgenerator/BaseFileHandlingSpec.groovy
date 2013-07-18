@@ -10,7 +10,7 @@ class BaseFileHandlingSpec extends BaseSpec {
 
     def setup() {
         testFolder = new File('build/' + this.getClass().name)
-        deleteDirectory(testFolder);
+        deleteDirectory(testFolder)
         testFolder.mkdirs()
     }
 }
