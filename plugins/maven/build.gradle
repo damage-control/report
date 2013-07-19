@@ -10,10 +10,15 @@ clean.dependsOn cleanLocalMavenRepository
 task install(type: Exec, dependsOn: ':html-generator:install') {
     logging.captureStandardOutput LogLevel.INFO
 
+    doFirst {
+        if (!System.getenv('M2_HOME')) {
+            throw new GradleException('M2_HOME environment variable not defined.')
+        }
+    }
+
     def ext = System.getProperty('os.name').contains('Win') ? '.bat' : ''
     def mvn = System.getenv('M2_HOME') + '/bin/mvn' + ext
 
-    environment 'JAVA_HOME', System.getenv('JAVA_HOME')
     environment 'M2_HOME', System.getenv('M2_HOME')
 
     executable mvn
@@ -32,7 +37,7 @@ signing {
 
 uploadArchives {
     repositories.mavenDeployer {
-        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+        beforeDeployment { deployment -> signing.signPom(deployment) }
 
         snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
             authentication(userName: sonatypeUsername, password: sonatypePassword)

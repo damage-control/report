@@ -5,7 +5,6 @@ import spock.lang.Specification
 class MavenPluginTest extends Specification {
 
     private static final String EXT = System.getProperty('os.name').contains('Win') ? '.bat' : ''
-    private static final String JAVA_HOME = System.getenv("JAVA_HOME")
     private static final String M2_HOME = System.getenv("M2_HOME")
     private static final String MVN = "${M2_HOME}/bin/mvn${EXT}"
 
@@ -13,7 +12,7 @@ class MavenPluginTest extends Specification {
 
     def "should generate reports using Spock specifications"() {
         when: "I run a Maven build"
-        def mvn = ["$MVN", "-e", "clean", "test"].execute(["JAVA_HOME=${JAVA_HOME}", "M2_HOME=${M2_HOME}"], SAMPLE_MVN_PROJECT)
+        def mvn = ["$MVN", "-e", "clean", "test"].execute(["M2_HOME=${M2_HOME}"], SAMPLE_MVN_PROJECT)
 
         def standardOutput = new StringBuffer()
         def errorOutput = new StringBuffer()
