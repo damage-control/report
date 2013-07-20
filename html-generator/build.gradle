@@ -40,7 +40,7 @@ artifacts {
 }
 
 signing {
-    required releaseBuild
+    required { isReleaseBuild }
     sign configurations.archives
 }
 
