@@ -2,3 +2,7 @@
 jdk:
 - oraclejdk7
 script: ./travis-build.sh
+env:
+  global:
+  - secure: 3MwWRYP5MDVJw5TPG6+xb9iWShRmfDB5BswcZVGnV5PJgDVRrjv0tNvz4Sf0Jz45M9MSJSyCHdSSa8tmBl+fpeQBzhk6cdQzb9s4mVgEdtMqz4Rpe/QitrWVKv7nlHJUfZLFloJrlWNZJ8y2cyeldcw1hFrsi3r1UQFJbNP1oBo=
+  - secure: Vj3PkbOUMNZmpjPoBhrRPSaAbSPHnpz6aljfjaYL7RJwhmSoliyv/v85GQsTbOSVBzEunehKMwse28+xj6AvSTOd5DEIM5+3/ZN9IYWQcfYu5CpYl5ImfLRisbQz2GVG2v1D/lJFWo1X4yjaPNYJXFjlWSYKIjltquXrT7DpH5U=
