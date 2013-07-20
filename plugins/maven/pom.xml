@@ -3,56 +3,70 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.damage-control.report</groupId>
-    <artifactId>damage-control-maven-plugin</artifactId>
-    <version>1.1-SNAPSHOT</version>
-    <packaging>maven-plugin</packaging>
-    <name>Damage Control Report - Maven Plugin</name>
-    <description>Damage Control Report - Maven Plugin</description>
-    <url>https://github.com/damage-control/report</url>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.damage-control.report</groupId>
+  <artifactId>damage-control-maven-plugin</artifactId>
+  <version>1.1-SNAPSHOT</version>
+  <packaging>maven-plugin</packaging>
+  <name>Damage Control Report - Maven Plugin</name>
+  <description>Damage Control Report - Maven Plugin</description>
+  <url>https://github.com/damage-control/report</url>
 
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
-    <developers>
-        <developer>
-            <id>gsfreddo</id>
-            <name>Giordana Sfreddo</name>
-            <email>gsfreddo@thoughtworks.com</email>
-        </developer>
-        <developer>
-            <id>tprado</id>
-            <name>Thiago Prado</name>
-            <email>tprado@thoughtworks.com</email>
-        </developer>
-    </developers>
+  <developers>
+    <developer>
+      <id>gsfreddo</id>
+      <name>Giordana Sfreddo</name>
+      <email>gsfreddo@thoughtworks.com</email>
+    </developer>
+    <developer>
+      <id>tprado</id>
+      <name>Thiago Prado</name>
+      <email>tprado@thoughtworks.com</email>
+    </developer>
+  </developers>
 
-    <scm>
-        <connection>scm:git:git@github.com:damage-control/report.git</connection>
-        <developerConnection>scm:git:git@github.com:damage-control/report.git</developerConnection>
-        <url>git@github.com:damage-control/report.git</url>
-    </scm>
+  <scm>
+    <connection>scm:git:git@github.com:damage-control/report.git</connection>
+    <developerConnection>scm:git:git@github.com:damage-control/report.git</developerConnection>
+    <url>git@github.com:damage-control/report.git</url>
+  </scm>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-plugin-api</artifactId>
-            <version>3.0.4</version>
-            <scope>compile</scope>
-        </dependency>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>3.0.4</version>
+      <scope>compile</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>com.github.damage-control.report</groupId>
-            <artifactId>html-generator</artifactId>
-            <version>1.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
+    <dependency>
+      <groupId>com.github.damage-control.report</groupId>
+      <artifactId>html-generator</artifactId>
+      <version>1.1-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.5.1</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
