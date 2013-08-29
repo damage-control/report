@@ -34,6 +34,28 @@ class Spec1 {
     '''
     }
 
+    def 'should parse feature definition containing special characters'() {
+        given:
+        String sourceCode = '''
+class Spec1 {
+    def "feature | (name) with * special + chars."() {
+        for (;;){}
+        expect: 'some block'
+        // some blocks
+    }
+}
+'''
+        when:
+        def featureDefinition = parser.parse('feature | (name) with * special + chars.', sourceCode)
+
+        then:
+        featureDefinition == '''
+        for (;;)
+        expect: 'some block'
+        // some blocks
+    '''
+    }
+
     def 'should ignore feature if it is not defined in the source code'() {
         given:
         String sourceCode = '''

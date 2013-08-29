@@ -1,9 +1,11 @@
 package com.github.damagecontrol.report.htmlgenerator
 
+import java.util.regex.Pattern
+
 class FeatureDefinitionParser {
 
     def parse(name, sourceCode) {
-        def match = sourceCode =~ "(?s)def\\s?('|\")${name}('|\")\\s*\\(\\s*\\)\\s*\\{(.*)"
+        def match = sourceCode =~ "(?s)def\\s?('|\")${Pattern.quote(name)}('|\")\\s*\\(\\s*\\)\\s*\\{(.*)"
         if (match.size() == 0) {
             return ''
         }
