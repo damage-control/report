@@ -5,6 +5,8 @@ import static com.github.damagecontrol.report.htmlgenerator.Results.UNKNOWN
 import static com.github.damagecontrol.report.htmlgenerator.Results.FAILED
 import static com.github.damagecontrol.report.htmlgenerator.Results.PASSED
 
+import java.util.regex.Pattern
+
 class FailedFeature extends BaseFeature {
 
     final failed = true
@@ -26,7 +28,7 @@ class FailedFeature extends BaseFeature {
         def lines = []
 
         def shortName = specName.split('\\.').last()
-        def match = details =~ ".*\\(${shortName}\\.groovy\\:([0-9]+)\\)"
+        def match = details =~ ".*\\(${Pattern.quote(shortName)}\\.groovy\\:([0-9]+)\\)"
         match.each { lines.add(it[1].toInteger()) }
 
         lines

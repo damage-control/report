@@ -27,6 +27,21 @@ class FailedFeatureTest extends BaseFeatureSpec {
         feature.result == FAILED
     }
 
+    def 'should handle specifications names with special characters'() {
+        given:
+        feature.startLineNumber = 5
+        feature.endLineNumber = 25
+        feature.steps[0] = new Step(lineNumber: 10)
+        feature.steps[1] = new Step(lineNumber: 20)
+        feature.details = 'at spock.damagecontrol.SomeSpec$Test.feature name(SomeSpec$Test.groovy:21)'
+
+        when:
+        feature.identifyStepsResult('spock.damagecontrol.SomeSpec$Test')
+
+        then:
+        feature.steps[1].result == FAILED
+    }
+
     def 'should identify which step failed'() {
         given:
         feature.startLineNumber = 5
