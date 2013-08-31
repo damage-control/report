@@ -27,6 +27,9 @@ class TestResultsCollector {
             if (testCase.failure) {
                 feature = results.spec(testCase.'@classname').failed(testCase.'@name')
                 feature.details = testCase.failure[0].text()
+            } else if (testCase.error) {
+                feature = results.spec(testCase.'@classname').failed(testCase.'@name')
+                feature.details = testCase.error[0].text()
             } else if (testCase.skipped) {
                 feature = results.spec(testCase.'@classname').skipped(testCase.'@name')
             } else {

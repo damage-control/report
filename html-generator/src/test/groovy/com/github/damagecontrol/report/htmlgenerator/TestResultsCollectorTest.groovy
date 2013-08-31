@@ -138,6 +138,28 @@ class TestResultsCollectorTest extends BaseSpec {
         feature.details == 'TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19)'
     }
 
+    def 'should collect error details for each feature'() {
+        given:
+        String xml = '''<?xml version="1.0" encoding="UTF-8"?>
+            <testsuite name="samples.results.AnotherTestResultsCollectorTest" time="0.005">
+                <testcase classname="samples.results.AnotherTestResultsCollectorTest" name="shouldFail" time="0.001">
+                    <error message="failure message">
+                        <![CDATA[ TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19) ]]>
+                    </error>
+                </testcase>
+            </testsuite>'''
+
+        when:
+        collector.collect(new StringReader(xml))
+        Map specs = collector.results.specs
+
+        and:
+        def feature = specs.'samples.results.AnotherTestResultsCollectorTest'.features.'shouldFail'
+
+        then:
+        feature.details == 'TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19)'
+    }
+
     def 'should collect standard output for spec'() {
         given:
         String xml = '''<?xml version="1.0" encoding="UTF-8"?>

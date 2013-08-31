@@ -30,6 +30,6 @@ class MavenPluginTest extends Specification {
         new File(SAMPLE_MVN_PROJECT.absolutePath + "/target/damage-control-reports/index.html").exists()
 
         and: "I see a nice HTML report for a specification"
-        new File(SAMPLE_MVN_PROJECT.absolutePath + "/target/damage-control-reports/MultipleFeaturesTest.html").exists()
+        new File(SAMPLE_MVN_PROJECT.absolutePath + "/target/damage-control-reports/failed.MultipleFeaturesTest.html").exists()
     }
 }
