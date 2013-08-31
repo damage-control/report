@@ -1,43 +1,44 @@
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="style/damage-control.css"/>
+  <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+  <link rel="stylesheet" type="text/css" href="style/damage-control.css"/>
 </head>
 
 <body>
 <div id="content">
 
-    <div id="features-section">
-        <h3>Specifications</h3>
+  <div id="features-section">
+    <h3>Specifications</h3>
 
-        <div id='features-list'>
-            <table>
-                <thead>
-                <tr>
-                    <th>Specification</th>
-                    <th>Features</th>
-                    <th>Failures</th>
-                    <th>Skipped</th>
-                    <th>Duration</th>
-                    <th>Result</th>
-                </tr>
-                </thead>
-                <tbody>
+    <div id='features-list'>
+      <table>
+        <thead>
+        <tr>
+          <th>Specification</th>
+          <th>Features</th>
+          <th>Failures</th>
+          <th>Skipped</th>
+          <th>Duration</th>
+          <th>Result</th>
+        </tr>
+        </thead>
+        <tbody>
 
-                <% specs.each{ spec -> %>
-                <tr>
-                    <td id="<%= spec.name %>"><a href="<%= spec.name %>.html" class="result_<%= spec.result %>"><%= spec.name %></a></td>
-                    <td id="<%= spec.name %>_featureCount"><%= spec.featureCount %></td>
-                    <td id="<%= spec.name %>_failedFeatureCount"><%= spec.failedFeatureCount %></td>
-                    <td id="<%= spec.name %>_skippedFeatureCount"><%= spec.skippedFeatureCount %></td>
-                    <td id="<%= spec.name %>_duration"><%= spec.duration %>s</td>
-                    <td id="<%= spec.name %>_result" class="result_<%= spec.result %>"><%= spec.result %></td>
-                </tr>
-                <% } %>
+        <% specs.each { spec -> %>
+          <tr>
+            <td id="<%= spec.name %>"><a href="<%= spec.name %>.html" class="result_<%= spec.result %>"><%= spec.name %></a></td>
+            <td id="<%= spec.name %>_featureCount"><%= spec.featureCount %></td>
+            <td id="<%= spec.name %>_failedFeatureCount"><%= spec.failedFeatureCount %></td>
+            <td id="<%= spec.name %>_skippedFeatureCount"><%= spec.skippedFeatureCount %></td>
+            <td id="<%= spec.name %>_duration"><%= spec.duration %>s</td>
+            <td id="<%= spec.name %>_result" class="result_<%= spec.result %>"><%= spec.result %></td>
+          </tr>
+        <% } %>
 
-                </tbody>
-            </table>
-        </div>
+        </tbody>
+      </table>
     </div>
+  </div>
 
 </div>
 </body>

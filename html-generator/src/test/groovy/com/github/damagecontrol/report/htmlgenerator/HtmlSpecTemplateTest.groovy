@@ -7,6 +7,7 @@ import static com.github.damagecontrol.report.htmlgenerator.Results.PASSED
 class HtmlSpecTemplateTest extends BaseSpec {
 
     HtmlSpecTemplate template
+    HtmlPage specHtml
     Spec spec
 
     def setup() {
@@ -24,112 +25,77 @@ class HtmlSpecTemplateTest extends BaseSpec {
         spec.features.'feature 2'.steps.add(new Step(type: 'expect', description: '"something"', result: PASSED))
 
         template = new HtmlSpecTemplate()
+        specHtml =  new HtmlPage(template.generate(spec))
     }
 
-    def 'should surround standard output with div'() {
-        when:
-        String html = template.generate(spec)
-
-        then:
-        html =~ /(?s)<div id='spec-standard-output'>.*(standard output message).*<\/div>/
+    def 'should present standard output'() {
+        expect:
+        specHtml.findElementById('spec-standard-output').pre.text() == 'standard output message'
     }
 
-    def 'should surround error output with div'() {
-        when:
-        String html = template.generate(spec)
-
-        then:
-        html =~ /(?s)<div id='spec-error-output'>.*(error output message).*<\/div>/
+    def 'should present error output'() {
+        expect:
+        specHtml.findElementById('spec-error-output').pre.text() == 'error output message'
     }
 
     def 'should list all features'() {
-        when:
-        String html = template.generate(spec)
-
-        then:
-        //TODO remove class and ignore this part in the regular expression
-        html =~ /(?s)<td id="feature 1" class="result_FAILED" expand="feature_0_steps">feature 1<\/td>/
-        html =~ /(?s)<td id="feature 2" class="result_PASSED" expand="feature_1_steps">feature 2<\/td>/
+        expect:
+        specHtml.findElementById('feature 1').text() == 'feature 1'
+        and:
+        specHtml.findElementById('feature 2').text() == 'feature 2'
     }
 
     def 'should show result for feature'() {
-        when:
-        String html = template.generate(spec)
-
-        then:
-        //TODO remove class and ignore this part in the regular expression
-        html =~ /(?s).*<td id="feature 1_result" class="result_FAILED">failed<\/td>.*/
+        expect:
+        specHtml.findElementById('feature 1_result').text() == 'failed'
+        and:
+        specHtml.findElementById('feature 1_result').'@class' == 'result_FAILED'
     }
 
     def 'should show spec duration'() {
-        when:
-        String html = template.generate(spec)
-
-        then:
-        html =~ /(?s).*<td id="feature 1_duration">0.250s<\/td>.*/
+        expect:
+        specHtml.findElementById('feature 1_duration').text() == '0.250s'
     }
 
     def 'should show number of features'() {
-        when:
-        String html = template.generate(spec)
-
-        then:
-        html =~ /(?s).*<div class="summaryCounter" id="featureCount">2.*<\/div>/
+        expect:
+        specHtml.findElementById('featureCount').text() == '2'
     }
 
     def 'should show number of failed features'() {
-        when:
-        String html = template.generate(spec)
-
-        then:
-        html =~ /(?s).*<div class="summaryCounter" id="failedFeatureCount">1.*<\/div>/
+        expect:
+        specHtml.findElementById('failedFeatureCount').text() == '1'
     }
 
     def 'should show number of skipped features'() {
-        when:
-        String html = template.generate(spec)
-
-        then:
-        html =~ /(?s).*<div class="summaryCounter" id="skippedFeatureCount">0.*<\/div>/
+        expect:
+        specHtml.findElementById('skippedFeatureCount').text() == '0'
     }
 
     def 'should show duration for specification'() {
-        when:
-        String html = template.generate(spec)
-
-        then:
-        html =~ /(?s).*<div class="summaryCounter" id="specDuration">0.355s.*<\/div>/
+        expect:
+        specHtml.findElementById('specDuration').text() == '0.355s'
     }
 
     def 'should show success percentage'() {
-        when:
-        String html = template.generate(spec)
-
-        then:
-        html =~ /(?s).*<div id="successPercentage">50%.*<\/div>/
+        expect:
+        specHtml.findElementById('successPercentage').text() == '50%'
     }
 
     def 'should show feature steps'() {
-        when:
-        String html = template.generate(spec)
-
-        then:
-        html =~ /(?s)<div class="steps">\s*expect "something" <span class="PASSED" expand="feature_1_details">passed<\/span><br\/>\s*<\/div>/
+        expect:
+        specHtml.findElementById('feature 1_steps').span.text() == 'failed'
+        and:
+        specHtml.findElementById('feature 2_steps').span.text() == 'passed'
     }
 
     def 'should show step failure details'() {
-        when:
-        String html = template.generate(spec)
-
-        then:
-        html =~ /(?s)<div class="details" expandable="feature_0_details"><pre>step failure details<\/pre><\/div>/
+        expect:
+        specHtml.findElementById('feature 1_steps').div.pre.text() == 'step failure details'
     }
 
     def 'should show feature failure details'() {
-        when:
-        String html = template.generate(spec)
-
-        then:
-        html =~ /(?s)<div class="details" expandable="feature_0_details"><pre>at SampleSpecificationTest.shouldFail\(SampleSpecTest.groovy:14\)<\/pre><\/div>/
+        expect:
+        specHtml.findElementById('feature 1_details').pre.text() == 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
     }
 }

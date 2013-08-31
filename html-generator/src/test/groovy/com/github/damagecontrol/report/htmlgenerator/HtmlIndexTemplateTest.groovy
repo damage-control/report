@@ -3,6 +3,7 @@ package com.github.damagecontrol.report.htmlgenerator
 class HtmlIndexTemplateTest extends BaseSpec {
 
     HtmlIndexTemplate indexTemplate
+    HtmlPage indexHtml
     def specs
 
     def setup() {
@@ -19,56 +20,43 @@ class HtmlIndexTemplateTest extends BaseSpec {
         specs = [spec1, spec2]
 
         indexTemplate = new HtmlIndexTemplate()
+        indexHtml =  new HtmlPage(indexTemplate.generate(specs))
     }
 
-    def 'should generate list of specifications as links'() {
-        when:
-        String html = indexTemplate.generate(specs)
+    def 'should generate list of links to spec details'() {
+        expect:
+        indexHtml.findElementById('Spec1').a.'@href'[0] == 'Spec1.html'
+        and:
+        indexHtml.findElementById('Spec1').a.text() == 'Spec1'
 
-        then:
-        //TODO remove class and ignore this part in the regular expression
-        html =~ /(?s)<td id="Spec1"><a href="Spec1.html" class="result_failed">Spec1<\/a><\/td>/
-        html =~ /(?s)<td id="Spec2"><a href="Spec2.html" class="result_skipped">Spec2<\/a><\/td>/
+        and:
+        indexHtml.findElementById('Spec2').a.'@href'[0] == 'Spec2.html'
+        and:
+        indexHtml.findElementById('Spec2').a.text() == 'Spec2'
     }
 
     def 'should show number of features for each specification'() {
-        when:
-        String html = indexTemplate.generate(specs)
-
-        then:
-        html =~ /(?s)<td id="Spec1_featureCount">3<\/td>/
+        expect:
+        indexHtml.findElementById('Spec1_featureCount').text() == '3'
     }
 
     def 'should show number of failed features for each specification'() {
-        when:
-        String html = indexTemplate.generate(specs)
-
-        then:
-        html =~ /(?s)<td id="Spec1_failedFeatureCount">1<\/td>/
+        expect:
+        indexHtml.findElementById('Spec1_failedFeatureCount').text() == '1'
     }
 
     def 'should show number of skipped features for each specification'() {
-        when:
-        String html = indexTemplate.generate(specs)
-
-        then:
-        html =~ /(?s)<td id="Spec1_skippedFeatureCount">1<\/td>/
+        expect:
+        indexHtml.findElementById('Spec1_skippedFeatureCount').text() == '1'
     }
 
     def 'should show result for each specification'() {
-        when:
-        String html = indexTemplate.generate(specs)
-
-        then:
-        //TODO remove class and ignore this part in the regular expression
-        html =~ /(?s)<td id="Spec1_result" class="result_failed">failed<\/td>/
+        expect:
+        indexHtml.findElementById('Spec1_result').text() == 'failed'
     }
 
     def 'should show duration for each specification'() {
-        when:
-        String html = indexTemplate.generate(specs)
-
-        then:
-        html =~ /(?s)<td id="Spec1_duration">0.155s<\/td>/
+        expect:
+        indexHtml.findElementById('Spec1_duration').text() == '0.155s'
     }
 }
