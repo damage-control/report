@@ -92,11 +92,11 @@ a {
     margin-bottom: 8px;
 }
 
-.result_PASSED {
+.result_PASSED, .result_passed {
     color: green;
 }
 
-.result_FAILED {
+.result_FAILED, .result_failed {
     color: #B60808;
 }
 
@@ -145,4 +145,14 @@ div.steps span.FAILED {
 div.steps span.NOT_PERFORMED {
     font-size: 9pt;
     color: gray;
+}
+
+#footer {
+    padding: 30px 30px;
+    font-size: small;
+    color: darkgray;
+}
+
+#footer a {
+    color: darkgray;
 }

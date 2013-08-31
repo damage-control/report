@@ -1,138 +1,122 @@
-<!DOCTYPE html >
-<html>
-<head>
-  <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
-  <link rel="stylesheet" type="text/css" href="style/damage-control.css"/>
-  <script type="text/javascript" src="js/jquery.min.js"></script>
-  <script type="text/javascript" src="js/damage-control.js"></script>
-</head>
+<div id="summary-section">
+  <h1><%= spec.name %></h1>
 
-<body>
-<div id="content">
-
-  <div id="summary-section">
-    <h1><%= spec.name %></h1>
-
-    <div id="summary">
-      <table>
-        <tbody>
-        <tr>
-          <td>
-            <div id="infoBoxGroup">
-              <table>
-                <tbody>
-                <tr>
-                  <td>
-                    <div class="infoBox">
-                      <div class="summaryCounter" id="featureCount"><%= spec.featureCount%></div>
-                      <p>features</p>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="infoBox">
-                      <div class="summaryCounter" id="failedFeatureCount"><%= spec.failedFeatureCount %></div>
-                      <p>failures</p>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="infoBox">
-                      <div class="summaryCounter" id="skippedFeatureCount"><%= spec.skippedFeatureCount%></div>
-                      <p>skipped</p>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="infoBox">
-                      <div class="summaryCounter" id="specDuration"><%= spec.duration%>s</div>
-                      <p>duration</p>
-                    </div>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </td>
-          <td>
-            <div id="successRate" class="specResult_<%= spec.result%>">
-              <div id="successPercentage"><%= spec.successPercentage%>%</div>
-              <p>successful</p>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+  <div id="summary">
+    <table>
+      <tbody>
+      <tr>
+        <td>
+          <div id="infoBoxGroup">
+            <table>
+              <tbody>
+              <tr>
+                <td>
+                  <div class="infoBox">
+                    <div class="summaryCounter" id="featureCount"><%= spec.featureCount%></div>
+                    <p>features</p>
+                  </div>
+                </td>
+                <td>
+                  <div class="infoBox">
+                    <div class="summaryCounter" id="failedFeatureCount"><%= spec.failedFeatureCount %></div>
+                    <p>failures</p>
+                  </div>
+                </td>
+                <td>
+                  <div class="infoBox">
+                    <div class="summaryCounter" id="skippedFeatureCount"><%= spec.skippedFeatureCount%></div>
+                    <p>skipped</p>
+                  </div>
+                </td>
+                <td>
+                  <div class="infoBox">
+                    <div class="summaryCounter" id="specDuration"><%= spec.duration%>s</div>
+                    <p>duration</p>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </td>
+        <td>
+          <div id="successRate" class="specResult_<%= spec.result%>">
+            <div id="successPercentage"><%= spec.successPercentage%>%</div>
+            <p>successful</p>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
-
-  <div id="features-section">
-    <h3>Features</h3>
-
-    <div id='features-list'>
-      <table>
-        <thead>
-        <tr>
-          <th>Feature</th>
-          <th>Duration</th>
-          <th>Result</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% features.eachWithIndex { featureName, feature, featureIndex -> %>
-          <tr>
-            <td id="<%= featureName %>"
-                class="result_<%= feature.result %>"
-                <% if (feature.hasDetails()) { %>
-                  expand="feature_<%= featureIndex %>_steps"
-                <% } %>
-              >
-              <%= featureName %>
-            </td>
-            <td id="<%= featureName %>_duration"><%= feature.duration %>s</td>
-            <td id="<%= featureName %>_result" class="result_<%= feature.result %>"><%= feature.result.description %></td>
-          </tr>
-          <tr expandable="feature_<%= featureIndex %>_steps">
-            <td colspan="3">
-              <% if (!feature.steps.isEmpty()) { %>
-                <div id="<%= featureName %>_steps" class="steps">
-                  <% feature.steps.each { step -> %>
-                    <%= step.type %> <%= step.description %> <span class="<%= step.result %>" expand="feature_<%= featureIndex %>_details"><%= step.result.description %></span><br/>
-                    <% if (step.details) { %>
-                      <div class="details" expandable="feature_<%= featureIndex %>_details">
-                        <pre><%= step.details %></pre>
-                      </div>
-                    <% } %>
-                  <% } %>
-                </div>
-              <% } %>
-
-              <% if (feature.details) { %>
-                <div id="<%= featureName %>_details" class="details">
-                  <pre><%= feature.details %></pre>
-                </div>
-              <% } %>
-            </td>
-          </tr>
-        <% } %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div id="spec-standard-output-section">
-    <h3>System Out</h3>
-
-    <div id='spec-standard-output'>
-      <pre>${spec_standard_output}</pre>
-    </div>
-  </div>
-
-  <div id="spec-error-output-section">
-    <h3>System Error</h3>
-
-    <div id='spec-error-output'>
-      <pre>${spec_error_output}</pre>
-    </div>
-  </div>
-
 </div>
-</body>
-</html>
+
+<div id="features-section">
+  <h3>Features</h3>
+
+  <div id='features-list'>
+    <table>
+      <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Duration</th>
+        <th>Result</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% features.eachWithIndex { featureName, feature, featureIndex -> %>
+        <tr>
+          <td id="<%= featureName %>"
+              class="result_<%= feature.result %>"
+              <% if (feature.hasDetails()) { %>
+                expand="feature_<%= featureIndex %>_steps"
+              <% } %>
+            >
+            <%= featureName %>
+          </td>
+          <td id="<%= featureName %>_duration"><%= feature.duration %>s</td>
+          <td id="<%= featureName %>_result" class="result_<%= feature.result %>"><%= feature.result.description %></td>
+        </tr>
+        <tr expandable="feature_<%= featureIndex %>_steps">
+          <td colspan="3">
+            <% if (!feature.steps.isEmpty()) { %>
+              <div id="<%= featureName %>_steps" class="steps">
+                <% feature.steps.each { step -> %>
+                  <%= step.type %> <%= step.description %> <span class="<%= step.result %>" expand="feature_<%= featureIndex %>_details"><%= step.result.description %></span><br/>
+                  <% if (step.details) { %>
+                    <div class="details" expandable="feature_<%= featureIndex %>_details">
+                      <pre><%= step.details %></pre>
+                    </div>
+                  <% } %>
+                <% } %>
+              </div>
+            <% } %>
+
+            <% if (feature.details) { %>
+              <div id="<%= featureName %>_details" class="details">
+                <pre><%= feature.details %></pre>
+              </div>
+            <% } %>
+          </td>
+        </tr>
+      <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="spec-standard-output-section">
+  <h3>System Out</h3>
+
+  <div id='spec-standard-output'>
+    <pre>${spec_standard_output}</pre>
+  </div>
+</div>
+
+<div id="spec-error-output-section">
+  <h3>System Error</h3>
+
+  <div id='spec-error-output'>
+    <pre>${spec_error_output}</pre>
+  </div>
+</div>
