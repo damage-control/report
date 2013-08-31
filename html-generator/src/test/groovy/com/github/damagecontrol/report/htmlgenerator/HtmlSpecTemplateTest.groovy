@@ -24,6 +24,8 @@ class HtmlSpecTemplateTest extends BaseSpec {
         spec.passed('feature 2')
         spec.features.'feature 2'.steps.add(new Step(type: 'expect', description: '"something"', result: PASSED))
 
+        spec.failed('feature 3')
+
         template = new HtmlSpecTemplate()
         specHtml =  new HtmlPage(template.generate(spec))
     }
@@ -36,6 +38,16 @@ class HtmlSpecTemplateTest extends BaseSpec {
     def 'should present error output'() {
         expect:
         specHtml.findElementById('spec-error-output').pre.text() == 'error output message'
+    }
+
+    def 'should be expandable if feature has steps or details'() {
+        expect:
+        specHtml.findElementById('feature 1').'@expand' == 'feature_0_steps'
+    }
+
+    def 'should not be expandable if feature does not have steps and do not have details'() {
+        expect:
+        specHtml.findElementById('feature 3').'@expand' == null
     }
 
     def 'should list all features'() {
@@ -59,12 +71,12 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
     def 'should show number of features'() {
         expect:
-        specHtml.findElementById('featureCount').text() == '2'
+        specHtml.findElementById('featureCount').text() == '3'
     }
 
     def 'should show number of failed features'() {
         expect:
-        specHtml.findElementById('failedFeatureCount').text() == '1'
+        specHtml.findElementById('failedFeatureCount').text() == '2'
     }
 
     def 'should show number of skipped features'() {
@@ -79,7 +91,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
     def 'should show success percentage'() {
         expect:
-        specHtml.findElementById('successPercentage').text() == '50%'
+        specHtml.findElementById('successPercentage').text() == '33%'
     }
 
     def 'should show feature steps'() {
@@ -94,8 +106,18 @@ class HtmlSpecTemplateTest extends BaseSpec {
         specHtml.findElementById('feature 1_steps').div.pre.text() == 'step failure details'
     }
 
+    def 'should hide steps section if there is no step'() {
+        expect:
+        !specHtml.hasElementWithId('feature 3_steps')
+    }
+
     def 'should show feature failure details'() {
         expect:
         specHtml.findElementById('feature 1_details').pre.text() == 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
+    }
+
+    def 'should hide feature failure details if there is no error details'() {
+        expect:
+        !specHtml.hasElementWithId('feature 3_details')
     }
 }

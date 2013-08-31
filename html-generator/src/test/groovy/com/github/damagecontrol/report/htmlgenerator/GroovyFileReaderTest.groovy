@@ -36,4 +36,12 @@ class GroovyFileReaderTest extends BaseFileHandlingSpec {
         then:
         fileContents =~ /class SampleSpecDefinitionTest/
     }
+
+    def 'should ignore missing definition'() {
+        when:
+        def fileContents = groovyFileReader.read('SampleJUnitThatShouldBeIgnoredTest')
+
+        then:
+        fileContents == ''
+    }
 }

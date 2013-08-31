@@ -31,9 +31,29 @@ abstract class BaseFeatureSpec extends BaseSpec {
         feature.name == featureName
     }
 
-    def 'should have empty step list by default'() {
+    def 'should not have details by default'() {
         expect:
         feature.steps == []
+        and:
+        feature.details == null
+        and:
+        !feature.hasDetails()
+    }
+
+    def 'should indicate presence of details if there is at least one step'() {
+        given:
+        feature.steps[0] = new Step(lineNumber: 10)
+
+        expect:
+        feature.hasDetails()
+    }
+
+    def 'should indicate presence of details if there is error details'() {
+        given:
+        feature.details = 'error details'
+
+        expect:
+        feature.hasDetails()
     }
 
     def 'should parse feature definition'() {

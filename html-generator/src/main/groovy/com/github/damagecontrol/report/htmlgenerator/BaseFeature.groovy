@@ -21,6 +21,10 @@ abstract class BaseFeature {
         setSteps(featureDefinition)
     }
 
+    def hasDetails() {
+        !steps.isEmpty() || details
+    }
+
     private setLineNumbers(featureDefinition) {
         def match = featureDefinition =~ /(?m)^#([0-9]*)#/
         if (match.count > 0) {

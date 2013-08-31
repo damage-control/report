@@ -149,4 +149,16 @@ class SampleSpecificationTest {
         then:
         spec.features.'some feature'.steps[0].result == FAILED
     }
+
+    def 'should handle missing source code'() {
+        given:
+        def feature = spec.failed('some feature')
+        feature.details = 'at samples.SampleSpecificationTest.some feature(SampleSpecificationTest.groovy:5)'
+
+        when:
+        spec.parseEachFeatureDefinition('')
+
+        then:
+        spec.features.'some feature'.steps.size() == 0
+    }
 }

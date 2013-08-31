@@ -18,4 +18,10 @@ class HtmlPage {
 
         nodes[0]
     }
+
+    def hasElementWithId(id) {
+        def nodes = html.depthFirst().findAll { it.'@id' == id }
+
+        !nodes.isEmpty()
+    }
 }

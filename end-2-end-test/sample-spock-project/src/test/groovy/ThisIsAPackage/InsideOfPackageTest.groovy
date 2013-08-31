@@ -5,7 +5,7 @@ import spock.lang.Specification
 class InsideOfPackageTest extends Specification {
 
     def "length of Spocks and his friends names"() {
-        expect: "name lenght is correct"
+        expect: "name length is correct"
         name.size() == length
 
         where:
