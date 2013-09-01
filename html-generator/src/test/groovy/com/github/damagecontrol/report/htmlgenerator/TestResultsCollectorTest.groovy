@@ -58,6 +58,21 @@ class TestResultsCollectorTest extends BaseSpec {
         specs['samples.results.AnotherTestResultsCollectorTest'].features['shouldFail'].name == 'shouldFail'
     }
 
+    def 'should collect feature name with backslash'() {
+        given:
+        String xml = '''<?xml version="1.0" encoding="UTF-8"?>
+          <testsuite name="samples.results.AnotherTestResultsCollectorTest" time="0.005">
+            <testcase classname="samples.results.AnotherTestResultsCollectorTest" name="Spock\\&apos;s" time="0.001"/>
+          </testsuite>'''
+
+        when:
+        collector.collect(new StringReader(xml))
+        Map specs = collector.results.specs
+
+        then:
+        specs['samples.results.AnotherTestResultsCollectorTest'].features["Spock's"].name == "Spock's"
+    }
+
     def 'should collect specification duration time'() {
         given:
         String xml = '''<?xml version="1.0" encoding="UTF-8"?>

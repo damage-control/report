@@ -2,7 +2,7 @@ import spock.lang.Specification
 
 class AllGreenFeaturesTest extends Specification {
 
-    def "length of Spocks and his friends names"() {
+    def "length of Spock's and his friends names"() {
         expect: "name length is correct"
         name.size() == length
 
