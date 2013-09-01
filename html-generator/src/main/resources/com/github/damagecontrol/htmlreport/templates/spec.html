@@ -1,53 +1,39 @@
-<div id="summary-section">
-  <h1><%= spec.name %></h1>
+<div id="navigation">
+  <a href="index.html">all</a> &gt; <%= spec.name %>
+</div>
 
+<h1>Specification <%= spec.name %></h1>
+
+<div id="summary-section">
   <div id="summary">
-    <table>
-      <tbody>
-      <tr>
-        <td>
-          <div id="infoBoxGroup">
-            <table>
-              <tbody>
-              <tr>
-                <td>
-                  <div class="infoBox">
-                    <div class="summaryCounter" id="featureCount"><%= spec.featureCount%></div>
-                    <p>features</p>
-                  </div>
-                </td>
-                <td>
-                  <div class="infoBox">
-                    <div class="summaryCounter" id="failedFeatureCount"><%= spec.failedFeatureCount %></div>
-                    <p>failures</p>
-                  </div>
-                </td>
-                <td>
-                  <div class="infoBox">
-                    <div class="summaryCounter" id="skippedFeatureCount"><%= spec.skippedFeatureCount%></div>
-                    <p>skipped</p>
-                  </div>
-                </td>
-                <td>
-                  <div class="infoBox">
-                    <div class="summaryCounter" id="specDuration"><%= spec.duration%>s</div>
-                    <p>duration</p>
-                  </div>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </td>
-        <td>
-          <div id="successRate" class="specResult_<%= spec.result%>">
-            <div id="successPercentage"><%= spec.successPercentage%>%</div>
-            <p>successful</p>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="summary-group">
+      <div class="summary-counter">
+        <div class="counter" id="featureCount"><%= spec.featureCount%></div>
+        <div class="label">features</div>
+      </div>
+
+      <div class="summary-counter">
+        <div class="counter" id="failedFeatureCount"><%= spec.failedFeatureCount %></div>
+        <div class="label">failures</div>
+      </div>
+
+      <div class="summary-counter">
+        <div class="counter" id="skippedFeatureCount"><%= spec.skippedFeatureCount%></div>
+        <div class="label">skipped</div>
+      </div>
+
+      <div class="summary-counter">
+        <div class="counter" id="specDuration"><%= spec.duration%>s</div>
+        <div class="label">duration</div>
+      </div>
+    </div>
+
+    <div class="summary-group <%= spec.result%>">
+      <div class="summary-counter">
+        <div class="counter" id="successPercentage"><%= spec.successPercentage%>%</div>
+        <div class="label">successful</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -108,7 +94,7 @@
 <div id="spec-standard-output-section">
   <h3>System Out</h3>
 
-  <div id='spec-standard-output'>
+  <div id="spec-standard-output" class="spec-output">
     <pre>${spec_standard_output}</pre>
   </div>
 </div>
@@ -116,7 +102,7 @@
 <div id="spec-error-output-section">
   <h3>System Error</h3>
 
-  <div id='spec-error-output'>
+  <div id="spec-error-output" class="spec-output">
     <pre>${spec_error_output}</pre>
   </div>
 </div>

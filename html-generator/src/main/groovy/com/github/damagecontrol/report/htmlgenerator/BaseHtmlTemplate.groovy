@@ -9,9 +9,10 @@ class BaseHtmlTemplate {
     private static final BASE_TEMPLATE = new GStringTemplateEngine().createTemplate(BASE_URL)
 
     @SuppressWarnings('SimpleDateFormatMissingLocale')
-    def decorate(contents) {
+    def decorate(title, contents) {
         BASE_TEMPLATE.make(
             [
+                title: title,
                 contents: contents.toString(),
                 timestamp: new SimpleDateFormat('yyyy-MM-dd HH:mm:ss Z').format(new Date())
             ]

@@ -1,158 +1,156 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    font-size: 12pt;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  font-size: 12pt;
 }
 
 h1 {
-    font-size: 160%;
+  font-size: 150%;
 }
 
 a {
-    color: #000000;
+  color: #000000;
 }
 
 #content {
-    padding: 15px 30px;
+  padding: 5px 30px;
 }
 
+#footer {
+  padding: 30px 30px;
+  font-size: small;
+  color: darkgray;
+}
+
+#footer a {
+  color: darkgray;
+}
+
+
+
+#navigation {
+  font-size: small;
+  color: darkgray;
+}
+
+#navigation a {
+  color: darkgray;
+}
+
+.summary-group {
+  display: inline-block;
+  border: solid 2px #D0D0D0;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.summary-group.passed {
+  color: green;
+  border-color: green;
+  background-color: #BBD9BB;
+}
+
+.summary-group.failed {
+  color: #B60808;
+  border-color: #B60808;
+  background-color: #ECDADA;
+}
+
+.summary-group.skipped {
+  color: black;
+  border-color: darkgray;
+  background-color: lightgray;
+}
+
+.summary-counter {
+  display: inline-block;
+  text-align: center;
+  padding: 20px;
+}
+
+.summary-counter .counter {
+  font-weight: bold;
+  font-size: 130%;
+}
+
+.summary-counter .label {
+
+}
+
+
+
+
 #features-section table {
-    border-bottom: solid #D0D0D0 1px;
-    border-collapse: collapse;
-    border-spacing: 2px;
+  border-bottom: solid #D0D0D0 1px;
+  border-collapse: collapse;
+  border-spacing: 2px;
 }
 
 #features-section th {
-    border-bottom: solid #D0D0D0 1px;
-    white-space: nowrap;
-    text-align: right;
-    padding-left: 6em;
+  border-bottom: solid #D0D0D0 1px;
+  white-space: nowrap;
+  text-align: right;
+  padding-left: 3em;
 }
 
 #features-section th:first-child {
-    padding-left: 0;
-    text-align: left;
+  padding-left: 0;
+  text-align: left;
 }
 
 #features-section td {
-    white-space: nowrap;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    display: table-cell;
-    vertical-align: inherit;
-    text-align: right;
-    padding-left: 6em;
+  white-space: nowrap;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: table-cell;
+  vertical-align: inherit;
+  text-align: right;
 }
 
 #features-section td:first-child {
-    padding-left: 0;
-    text-align: left;
-}
-
-#infoBoxGroup{
-    border: solid 2px #D0D0D0;
-    border-radius: 10px;
-    width: 480px;
-}
-
-#infoBoxGroup table {
-    border-collapse: collapse;
-}
-
-#infoBoxGroup td {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    text-align: center;
-    padding-left: 3em;
-}
-
-#successRate{
-    border: solid 2px #D0D0D0;
-    border-radius: 10px;
-    padding-top: 15px;
-    text-align: center;
-    padding-left: 2em;
-    padding-right: 2em;
-    margin-left: 2em;
-}
-
-#successPercentage{
-    font-size: 180%;
-    font-weight: bold;
-}
-
-#summary td{
-    vertical-align: top;
-}
-
-.summaryCounter {
-    font-size: 120%;
-    font-weight: bold;
-    margin-bottom: 8px;
+  padding-left: 0;
+  text-align: left;
 }
 
 .result_PASSED, .result_passed {
-    color: green;
+  color: green;
 }
 
 .result_FAILED, .result_failed {
-    color: #B60808;
+  color: #B60808;
 }
 
-#successRate.specResult_passed {
-    color: green;
-    border-color: green;
-    background-color: #BBD9BB;
-}
-
-#successRate.specResult_failed {
-    color: #B60808;
-    border-color: #B60808;
-    background-color: #ECDADA;
-}
-
-#spec-standard-output,
-#spec-error-output {
-    font-family: monospace;
-    font-size: large;
-    border: 1px solid #a9a9a9;
+.spec-output {
+  font-family: monospace;
+  font-size: large;
+  border: 1px solid #a9a9a9;
 }
 
 div.steps,
 div.details {
-    font-family: monospace;
-    font-size: 10pt;
-    margin-left: 10px;
+  font-family: monospace;
+  font-size: 10pt;
+  margin-left: 10px;
 }
 
 div.details {
-    font-size: 9pt;
-    border-left: 1px #D0D0D0 solid;
-    padding-left: 2px;
+  font-size: 9pt;
+  border-left: 1px #D0D0D0 solid;
+  padding-left: 2px;
 }
 
 div.steps span.PASSED {
-    font-size: 9pt;
-    color: green;
+  font-size: 9pt;
+  color: green;
 }
 
 div.steps span.FAILED {
-    font-size: 9pt;
-    color: #B60808;
+  font-size: 9pt;
+  color: #B60808;
 }
 
 div.steps span.NOT_PERFORMED {
-    font-size: 9pt;
-    color: gray;
-}
-
-#footer {
-    padding: 30px 30px;
-    font-size: small;
-    color: darkgray;
-}
-
-#footer a {
-    color: darkgray;
+  font-size: 9pt;
+  color: gray;
 }

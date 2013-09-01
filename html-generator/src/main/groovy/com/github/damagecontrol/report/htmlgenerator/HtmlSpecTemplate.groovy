@@ -11,6 +11,7 @@ class HtmlSpecTemplate {
 
     def generate(spec) {
         basePage.decorate(
+            spec.name,
             TEMPLATE.make([
                 spec_standard_output: spec.output.standard,
                 spec_error_output: spec.output.error,

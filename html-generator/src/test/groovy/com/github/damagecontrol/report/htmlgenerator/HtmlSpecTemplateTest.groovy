@@ -30,6 +30,11 @@ class HtmlSpecTemplateTest extends BaseSpec {
         specHtml =  new HtmlPage(template.generate(spec))
     }
 
+    def 'should have spec name as page title'() {
+        expect:
+        specHtml.html.head.title.text() == 'samples.definitions.SampleSpecTest - Damage Control Report'
+    }
+
     def 'should present standard output'() {
         expect:
         specHtml.findElementById('spec-standard-output').pre.text() == 'standard output message'

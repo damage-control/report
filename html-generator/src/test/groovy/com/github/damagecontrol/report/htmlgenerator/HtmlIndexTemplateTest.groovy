@@ -23,6 +23,11 @@ class HtmlIndexTemplateTest extends BaseSpec {
         indexHtml =  new HtmlPage(indexTemplate.generate(specs))
     }
 
+    def 'should have page title'() {
+        expect:
+        indexHtml.html.head.title.text() == 'Specifications - Damage Control Report'
+    }
+
     def 'should generate list of links to spec details'() {
         expect:
         indexHtml.findElementById('Spec1').a.'@href'[0] == 'Spec1.html'
