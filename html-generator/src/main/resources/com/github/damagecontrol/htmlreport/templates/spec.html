@@ -4,38 +4,7 @@
 
 <h1>Specification <%= spec.name %></h1>
 
-<div id="summary-section">
-  <div id="summary">
-    <div class="summary-group">
-      <div class="summary-counter">
-        <div class="counter" id="featureCount"><%= spec.featureCount%></div>
-        <div class="label">features</div>
-      </div>
-
-      <div class="summary-counter">
-        <div class="counter" id="failedFeatureCount"><%= spec.failedFeatureCount %></div>
-        <div class="label">failures</div>
-      </div>
-
-      <div class="summary-counter">
-        <div class="counter" id="skippedFeatureCount"><%= spec.skippedFeatureCount%></div>
-        <div class="label">skipped</div>
-      </div>
-
-      <div class="summary-counter">
-        <div class="counter" id="specDuration"><%= spec.duration%>s</div>
-        <div class="label">duration</div>
-      </div>
-    </div>
-
-    <div class="summary-group <%= spec.result%>">
-      <div class="summary-counter">
-        <div class="counter" id="successPercentage"><%= spec.successPercentage%>%</div>
-        <div class="label">successful</div>
-      </div>
-    </div>
-  </div>
-</div>
+<%= featuresSummaryFragment %>
 
 <div id="features-section">
   <h3>Features</h3>

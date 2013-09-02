@@ -45,19 +45,19 @@ a {
   margin-right: 10px;
 }
 
-.summary-group.passed {
+.summary-group.PASSED {
   color: green;
   border-color: green;
   background-color: #BBD9BB;
 }
 
-.summary-group.failed {
+.summary-group.FAILED {
   color: #B60808;
   border-color: #B60808;
   background-color: #ECDADA;
 }
 
-.summary-group.skipped {
+.summary-group.SKIPPED {
   color: black;
   border-color: darkgray;
   background-color: lightgray;
@@ -113,11 +113,11 @@ a {
   text-align: left;
 }
 
-.result_PASSED, .result_passed {
+.result_PASSED {
   color: green;
 }
 
-.result_FAILED, .result_failed {
+.result_FAILED {
   color: #B60808;
 }
 

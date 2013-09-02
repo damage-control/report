@@ -4,11 +4,15 @@ class TestResults {
 
     final specs = [:]
 
-    def getSpecList() {
-        specs.values().toList()
-    }
-
     def spec(specName) {
         specs[specName] = specs[specName] ?: new Spec(name: specName)
+    }
+
+    def getSummary() {
+        def features = []
+        specs.each { name, spec ->
+            features.addAll(spec.features.values())
+        }
+        new FeaturesSummary(features: features)
     }
 }

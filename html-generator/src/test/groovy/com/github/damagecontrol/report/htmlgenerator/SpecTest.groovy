@@ -50,79 +50,12 @@ class SampleSpecificationTest {
         spec.output
     }
 
-    def 'should count number of features'() {
+    def 'should summarize features'() {
         given:
         spec.passed('feature name')
 
         expect:
-        spec.featureCount == 1
-    }
-
-    def 'should count number of failed features'() {
-        given:
-        spec.failed('failed feature')
-
-        expect:
-        spec.failedFeatureCount == 1
-    }
-
-    def 'should count number of skipped features'() {
-        given:
-        spec.skipped('feature name')
-
-        expect:
-        spec.skippedFeatureCount == 1
-    }
-
-    def 'should show "failed" for specification with at least 1 failed feature'() {
-        given:
-        spec.passed('feature 1')
-        spec.failed('feature 2')
-
-        expect:
-        spec.result == 'failed'
-    }
-
-    def 'should show "skipped" for specification with all skipped features'() {
-        given:
-        spec.skipped('feature name')
-
-        expect:
-        spec.result == 'skipped'
-    }
-
-    def 'should show "passed" for specification with no failures and at least 1 success feature'() {
-        given:
-        spec.passed('feature 1')
-
-        expect:
-        spec.result == 'passed'
-    }
-
-    def 'should indicate 100% successful features for no failures'() {
-        given:
-        spec.passed('feature 1')
-
-        expect:
-        spec.successPercentage == 100
-    }
-
-    def 'should indicate 33% successful features'() {
-        given:
-        spec.passed('passed feature')
-        spec.failed('a failed feature')
-        spec.failed('another failed feature')
-
-        expect:
-        spec.successPercentage == 33
-    }
-
-    def 'should indicate 0% successful features for all features failed'() {
-        given:
-        spec.failed('a failed feature')
-
-        expect:
-        spec.successPercentage == 0
+        spec.summary.count == 1
     }
 
     def 'should parse definition for all features'() {

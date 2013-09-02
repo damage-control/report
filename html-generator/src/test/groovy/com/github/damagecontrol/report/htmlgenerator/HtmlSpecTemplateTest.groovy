@@ -35,6 +35,11 @@ class HtmlSpecTemplateTest extends BaseSpec {
         specHtml.html.head.title.text() == 'samples.definitions.SampleSpecTest - Damage Control Report'
     }
 
+    def 'should generate the features summary'() {
+        expect:
+        specHtml.hasElementWithId('summary-section')
+    }
+
     def 'should present standard output'() {
         expect:
         specHtml.findElementById('spec-standard-output').pre.text() == 'standard output message'
@@ -72,31 +77,6 @@ class HtmlSpecTemplateTest extends BaseSpec {
     def 'should show spec duration'() {
         expect:
         specHtml.findElementById('feature 1_duration').text() == '0.250s'
-    }
-
-    def 'should show number of features'() {
-        expect:
-        specHtml.findElementById('featureCount').text() == '3'
-    }
-
-    def 'should show number of failed features'() {
-        expect:
-        specHtml.findElementById('failedFeatureCount').text() == '2'
-    }
-
-    def 'should show number of skipped features'() {
-        expect:
-        specHtml.findElementById('skippedFeatureCount').text() == '0'
-    }
-
-    def 'should show duration for specification'() {
-        expect:
-        specHtml.findElementById('specDuration').text() == '0.355s'
-    }
-
-    def 'should show success percentage'() {
-        expect:
-        specHtml.findElementById('successPercentage').text() == '33%'
     }
 
     def 'should show feature steps'() {

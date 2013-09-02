@@ -13,6 +13,7 @@ class HtmlSpecTemplate {
         basePage.decorate(
             spec.name,
             TEMPLATE.make([
+                featuresSummaryFragment: new HtmlFeaturesSummaryTemplate().generate(spec.summary),
                 spec_standard_output: spec.output.standard,
                 spec_error_output: spec.output.error,
                 features: spec.features,

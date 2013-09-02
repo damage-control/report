@@ -1,0 +1,32 @@
+<div id="summary-section">
+  <div id="summary">
+    <div class="summary-group">
+      <div class="summary-counter">
+        <div class="counter" id="featureCount"><%= summary.count %></div>
+        <div class="label">features</div>
+      </div>
+
+      <div class="summary-counter">
+        <div class="counter" id="failedFeatureCount"><%= summary.failedCount %></div>
+        <div class="label">failures</div>
+      </div>
+
+      <div class="summary-counter">
+        <div class="counter" id="skippedFeatureCount"><%= summary.skippedCount %></div>
+        <div class="label">skipped</div>
+      </div>
+
+      <div class="summary-counter">
+        <div class="counter" id="specDuration"><%= summary.duration %>s</div>
+        <div class="label">duration</div>
+      </div>
+    </div>
+
+    <div class="summary-group <%= summary.result %>">
+      <div class="summary-counter">
+        <div class="counter" id="successPercentage"><%= summary.successPercentage %>%</div>
+        <div class="label">successful</div>
+      </div>
+    </div>
+  </div>
+</div>

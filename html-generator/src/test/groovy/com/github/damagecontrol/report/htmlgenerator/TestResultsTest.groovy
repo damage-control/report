@@ -27,4 +27,14 @@ class TestResultsTest extends BaseSpec {
         then:
         spec1 == spec2
     }
+
+    def 'should summarize number of features'() {
+        given:
+        results.spec('spec 1').passed('feature 1.1')
+        results.spec('spec 1').passed('feature 1.2')
+        results.spec('spec 2').passed('feature 2.1')
+
+        expect:
+        results.summary.count == 3
+    }
 }

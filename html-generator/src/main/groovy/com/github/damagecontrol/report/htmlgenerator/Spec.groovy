@@ -35,43 +35,7 @@ class Spec {
         }
     }
 
-    def getFeatureCount() {
-        features.size()
-    }
-
-    def getFailedFeatureCount() {
-        int count = 0
-        features.each { featureName, feature ->
-            if (feature.failed) {
-                count += 1
-            }
-        }
-        count
-    }
-
-    def getSkippedFeatureCount() {
-        int count = 0
-        features.each { featureName, feature ->
-            if (feature.ignored) {
-                count += 1
-            }
-        }
-        count
-    }
-
-    def getResult() {
-        if (failedFeatureCount > 0) {
-            return 'failed'
-        }
-        if (skippedFeatureCount == featureCount) {
-            return 'skipped'
-        }
-        'passed'
-    }
-
-    int getSuccessPercentage() {
-        def successfulFeatureCount = featureCount - failedFeatureCount
-        float successPercentage = successfulFeatureCount/featureCount * 100
-        successPercentage.round(0)
+    def getSummary() {
+        new FeaturesSummary(features: features.values())
     }
 }

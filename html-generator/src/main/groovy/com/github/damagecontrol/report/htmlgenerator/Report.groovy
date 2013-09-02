@@ -18,16 +18,16 @@ class Report {
 
     def run() {
         new XmlFileReader(inputFolder: testResultsFolder).forEach { collector.collect(it) }
-        List specs = collector.results.specList
+        TestResults results = collector.results
 
         HtmlFileWriter writer = new HtmlFileWriter(outputFolder: outputFolder)
         GroovyFileReader reader = new GroovyFileReader(inputFolder: specDefinitionsFolder)
 
-        writer.write('index', indexTemplate.generate(specs))
+        writer.write('index', indexTemplate.generate(results))
 
-        specs.each { spec ->
-            spec.parseEachFeatureDefinition(reader.read(spec.name))
-            writer.write(spec.name, specTemplate.generate(spec))
+        results.specs.each { name, spec ->
+            spec.parseEachFeatureDefinition(reader.read(name))
+            writer.write(name, specTemplate.generate(spec))
         }
 
         copyURLToFile(CSS_URL, new File(outputFolder.absolutePath + '/style/damage-control.css'))

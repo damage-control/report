@@ -4,28 +4,31 @@ class HtmlIndexTemplateTest extends BaseSpec {
 
     HtmlIndexTemplate indexTemplate
     HtmlPage indexHtml
-    def specs
 
     def setup() {
         given:
-        Spec spec1 = new Spec(name: 'Spec1')
+        TestResults results = new TestResults()
+        Spec spec1 = results.spec('Spec1')
         spec1.duration = '0.155'
         spec1.passed('feature 1')
         spec1.failed('feature 2')
         spec1.features.'feature 2'.details = 'error detail'
         spec1.skipped('feature 3')
 
-        Spec spec2 = new Spec(name: 'Spec2')
-
-        specs = [spec1, spec2]
+        results.spec('Spec2')
 
         indexTemplate = new HtmlIndexTemplate()
-        indexHtml =  new HtmlPage(indexTemplate.generate(specs))
+        indexHtml =  new HtmlPage(indexTemplate.generate(results))
     }
 
     def 'should have page title'() {
         expect:
         indexHtml.html.head.title.text() == 'Specifications - Damage Control Report'
+    }
+
+    def 'should generate the features summary'() {
+        expect:
+        indexHtml.hasElementWithId('summary-section')
     }
 
     def 'should generate list of links to spec details'() {
