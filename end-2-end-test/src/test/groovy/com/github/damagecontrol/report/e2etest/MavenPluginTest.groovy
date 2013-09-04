@@ -4,32 +4,38 @@ import spock.lang.Specification
 
 class MavenPluginTest extends Specification {
 
-    private static final File SAMPLE_MVN_PROJECT = new File("sample-spock-project")
+    def sampleMvnProject
+    def mvn
 
-    def "should generate reports using Spock specifications"() {
-        given: "Maven is available"
-        def mvnPath
+    def setup() {
+        sampleMvnProject = new ProjectArtifacts(rootDirectory: new File("sample-spock-project"))
+        mvn = new MvnWrapper(project: sampleMvnProject.rootDirectory)
+    }
 
-        if (System.getenv('M2_HOME')) {
-            def ext = System.getProperty('os.name').contains('Win') ? '.bat' : ''
-            mvnPath = System.getenv('M2_HOME') + '/bin/mvn' + ext
-        } else {
-            mvnPath = System.getenv('MVN_COMMAND')
-        }
+    def 'generating HTML report'() {
+        when: 'Maven project is built'
+        mvn.run()
 
-        when: "I run a Maven build"
-        def mvn = ["$mvnPath", "-e", "clean", "test"].execute([], SAMPLE_MVN_PROJECT)
+        then: 'the index page is generated'
+        sampleMvnProject.has('/target/damage-control-reports/index.html')
 
-        def standardOutput = new StringBuffer()
-        def errorOutput = new StringBuffer()
-        mvn.consumeProcessOutput(standardOutput, errorOutput)
-        mvn.waitFor()
-        println standardOutput
+        and: 'each specification has an HTML page'
+        sampleMvnProject.has('/target/damage-control-reports/failed.MultipleFeaturesTest.html')
+    }
 
-        then: "I see an index page"
-        new File(SAMPLE_MVN_PROJECT.absolutePath + "/target/damage-control-reports/index.html").exists()
+    def 'skipping report generation by providing "-DskipTests" command-line argument'() {
+        when: 'Maven project is built'
+        mvn.run('-DskipTests')
 
-        and: "I see a nice HTML report for a specification"
-        new File(SAMPLE_MVN_PROJECT.absolutePath + "/target/damage-control-reports/failed.MultipleFeaturesTest.html").exists()
+        then: 'no report is generated'
+        sampleMvnProject.doesNotHave('/target/damage-control-reports')
+    }
+
+    def 'skipping report generation by setting "skip" configuration property'() {
+        when: 'Maven project is built'
+        mvn.run('-P', 'noReport')
+
+        then: 'no report is generated'
+        sampleMvnProject.doesNotHave('/target/damage-control-reports')
     }
 }

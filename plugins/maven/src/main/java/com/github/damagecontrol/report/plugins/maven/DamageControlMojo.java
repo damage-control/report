@@ -27,9 +27,19 @@ public class DamageControlMojo extends AbstractMojo {
      */
     private File outputFolder;
 
+    /**
+     * @parameter default-value="false"
+     */
+    private boolean skip;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        getLog().info("Damage Control, report:");
+        if (skipTests()) {
+            getLog().info("Damage Control, Report: skipped.");
+            return;
+        }
+
+        getLog().info("Damage Control, Report:");
         getLog().info("test results folder=" + testResultsFolder);
         getLog().info("specs definition folder=" + specDefinitionsFolder);
         getLog().info("reports target folder=" + outputFolder);
@@ -39,5 +49,9 @@ public class DamageControlMojo extends AbstractMojo {
         report.setSpecDefinitionsFolder(specDefinitionsFolder);
         report.setOutputFolder(outputFolder);
         report.run();
+    }
+
+    private boolean skipTests() {
+        return skip || System.getProperty("skipTests") != null;
     }
 }

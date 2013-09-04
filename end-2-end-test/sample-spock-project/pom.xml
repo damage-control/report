@@ -10,6 +10,25 @@
   <packaging>jar</packaging>
   <name>Hello Spock</name>
 
+  <profiles>
+    <profile>
+      <id>generateReport</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <skip.damage.control.report>false</skip.damage.control.report>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>noReport</id>
+      <properties>
+        <skip.damage.control.report>true</skip.damage.control.report>
+      </properties>
+    </profile>
+  </profiles>
+
   <dependencies>
     <dependency>
       <groupId>org.spockframework</groupId>
@@ -78,6 +97,9 @@
         <groupId>com.github.damage-control.report</groupId>
         <artifactId>damage-control-maven-plugin</artifactId>
         <version>1.1-SNAPSHOT</version>
+        <configuration>
+          <skip>${skip.damage.control.report}</skip>
+        </configuration>
         <executions>
           <execution>
             <phase>test</phase>
