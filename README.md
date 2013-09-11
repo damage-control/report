@@ -35,3 +35,17 @@ To build `html-generator` module only:
 ```
 gradle :html-generator:install
 ```
+
+Change Notes
+------------
+
+## 1.1.0
+
+* new "skip" configuration property (Maven plugin)
+* summary on index page
+* navigation link on top of each page
+* generation timestamps on each page
+* ignoring missing sources so plain JUnit tests are displayed as well
+* presenting spec error details when available
+* handling special characters in feature names
+
