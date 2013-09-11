@@ -4,7 +4,7 @@ ext {
     groovyVersion = '1.8.6'
     spockVersion = '0.6-groovy-1.8'
     damageControlReportGroup = 'com.github.damage-control.report'
-    damageControlReportVersion = '1.1.0'
+    damageControlReportVersion = '1.2-SNAPSHOT'
     isReleaseBuild = !damageControlReportVersion.endsWith('SNAPSHOT')
     localMavenRepositoryPath = "${System.getenv('HOME')}/.m2/repository/com/github/damage-control/report"
 }
