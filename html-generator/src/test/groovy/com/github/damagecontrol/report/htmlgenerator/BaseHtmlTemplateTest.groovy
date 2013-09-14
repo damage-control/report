@@ -2,6 +2,8 @@ package com.github.damagecontrol.report.htmlgenerator
 
 class BaseHtmlTemplateTest extends BaseSpec {
 
+    private static final CONFIG_URL = getResource('/damage-control-config.groovy')
+
     def page
 
     def setup() {
@@ -17,5 +19,13 @@ class BaseHtmlTemplateTest extends BaseSpec {
     def 'should decorate page using provided content'() {
         expect:
         page.findElementById('content').text() == 'some contents'
+    }
+
+    def 'should decorate page with current version defined in the configuration file'() {
+        given:
+        def config = new ConfigSlurper().parse(CONFIG_URL)
+
+        expect:
+        page.findElementById('footer').a.text() == "Damage Control Report ${config.version}"
     }
 }

@@ -17,6 +17,13 @@ task cleanLocalMavenRepository(type: Delete) {
 
 clean.dependsOn cleanLocalMavenRepository
 
+task generateConfig {
+    def config = file("${projectDir}/src/main/resources/damage-control-config.groovy")
+    config.text = "version='${version}'\n"
+}
+
+compileGroovy.dependsOn generateConfig
+
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from 'build/docs/javadoc'

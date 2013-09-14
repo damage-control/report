@@ -5,4 +5,11 @@ dependencies {
     testCompile     group: 'org.spockframework',    name: 'spock-core',     version: spockVersion
 }
 
-test.dependsOn ':plugins:maven:install'
+task generateSamplePom {
+    def pom = file("${projectDir}/sample-spock-project/pom.xml")
+    def pomWithoutVersion = file("${projectDir}/sample-spock-project/pom-without-version.xml")
+
+    pom.text = pomWithoutVersion.text.replaceAll('@VERSION@', version)
+}
+
+test.dependsOn 'generateSamplePom', ':plugins:maven:install'

@@ -7,7 +7,14 @@ task cleanLocalMavenRepository(type: Delete) {
 
 clean.dependsOn cleanLocalMavenRepository
 
-task install(type: Exec, dependsOn: ':html-generator:install') {
+task generatePom {
+    def pom = file("${projectDir}/pom.xml")
+    def pomWithoutVersion = file("${projectDir}/pom-without-version.xml")
+
+    pom.text = pomWithoutVersion.text.replaceAll('@VERSION@', version)
+}
+
+task install(type: Exec) {
     logging.captureStandardOutput LogLevel.INFO
 
     doFirst {
@@ -29,6 +36,8 @@ task install(type: Exec, dependsOn: ':html-generator:install') {
     args 'clean'
     args 'install'
 }
+
+install.dependsOn ':html-generator:install', generatePom
 
 artifacts {
     archives file: file("target/damage-control-maven-plugin-${version}.jar"), name: "damage-control-maven-plugin-${version}", type: 'jar', builtBy: install
