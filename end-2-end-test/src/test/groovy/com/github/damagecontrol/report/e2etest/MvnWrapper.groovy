@@ -18,7 +18,7 @@ class MvnWrapper {
     }
 
     def run(String ... extraArgs) {
-        def mvnCommand = ["$MVN_PATH", "-e", "clean", "test"]
+        def mvnCommand = ["$MVN_PATH", "-e", "clean", "integration-test"]
         mvnCommand.addAll(Arrays.asList(extraArgs))
         println "Maven Command=$mvnCommand"
 

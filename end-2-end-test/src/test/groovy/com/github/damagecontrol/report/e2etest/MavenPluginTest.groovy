@@ -21,6 +21,9 @@ class MavenPluginTest extends Specification {
 
         and: 'each specification has an HTML page'
         sampleMvnProject.has('/target/damage-control-reports/failed.MultipleFeaturesTest.html')
+
+        and: 'integration test page is generated'
+        sampleMvnProject.has('/target/damage-control-reports/integration.MultipleFeaturesIT.html')
     }
 
     def 'skipping report generation by providing "-DskipTests" command-line argument'() {

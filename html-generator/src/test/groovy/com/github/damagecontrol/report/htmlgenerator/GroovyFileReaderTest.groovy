@@ -5,30 +5,44 @@ import static org.apache.commons.io.FileUtils.copyFileToDirectory
 class GroovyFileReaderTest extends BaseFileHandlingSpec {
 
     static final SAMPLE_FOLDER = 'src/test/resources'
-    static final SPEC_DEFINITION = new File(SAMPLE_FOLDER + '/samples/definitions/SampleSpecDefinitionTest.groovy')
+    static final SPEC_DEFINITION = new File("${SAMPLE_FOLDER}/samples/definitions/SampleSpecDefinitionTest.groovy")
 
     GroovyFileReader groovyFileReader
-    def specsDefinitionPackage
+    def specsDefinitionPackages
+    def specDefinitionsFolders
 
     def setup() {
-        specsDefinitionPackage = new File(testFolder.absolutePath + '/samples/definitions')
-        groovyFileReader = new GroovyFileReader(inputFolder: testFolder)
+        specDefinitionsFolders = [
+            new File("${testFolder.absolutePath}/unit-tests"),
+            new File("${testFolder.absolutePath}/integration-tests")
+        ]
+        specDefinitionsFolders.each { it.mkdirs() }
+
+        specsDefinitionPackages = [
+            new File("${specDefinitionsFolders[0].absolutePath}/samples/definitions0"),
+            new File("${specDefinitionsFolders[1].absolutePath}/samples/definitions1")
+        ]
+
+        groovyFileReader = new GroovyFileReader(inputFolders: specDefinitionsFolders)
     }
 
     def 'should read file contents inside a package'() {
         given:
-        copyFileToDirectory(SPEC_DEFINITION, specsDefinitionPackage)
+        copyFileToDirectory(SPEC_DEFINITION, specsDefinitionPackages[0])
+        copyFileToDirectory(SPEC_DEFINITION, specsDefinitionPackages[1])
 
-        when:
-        def fileContents = groovyFileReader.read('samples.definitions.SampleSpecDefinitionTest')
+        expect:
+        groovyFileReader.read(className) =~ fileContents
 
-        then:
-        fileContents =~ /class SampleSpecDefinitionTest/
+        where:
+        className                                       | fileContents
+        'samples.definitions0.SampleSpecDefinitionTest' | /class SampleSpecDefinitionTest/
+        'samples.definitions1.SampleSpecDefinitionTest' | /class SampleSpecDefinitionTest/
     }
 
     def 'should read file contents inside the default package'() {
         given:
-        copyFileToDirectory(SPEC_DEFINITION, testFolder)
+        copyFileToDirectory(SPEC_DEFINITION, specDefinitionsFolders[0])
 
         when:
         def fileContents = groovyFileReader.read('SampleSpecDefinitionTest')

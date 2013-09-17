@@ -8,21 +8,27 @@ class XmlFileReader {
     private static final boolean INCLUDE_SUB_FOLDERS = true
     private static final String[] XML = ['xml']
 
-    def inputFolder
+    def inputFolders
 
     @SuppressWarnings('CatchException')
     @SuppressWarnings('Println')
     def forEach(closure) {
-        iterateFiles(inputFolder, XML, INCLUDE_SUB_FOLDERS).each {file ->
-            def reader
+        inputFolders.each { inputFolder ->
+            iterateFiles(inputFolder, XML, INCLUDE_SUB_FOLDERS).each { file ->
+                def reader
 
-            try {
-                reader = new FileReader(file)
-                closure(reader)
-            } catch (Exception e) {
-                println "Error reading file '${file}': ${e.message}"
-            } finally {
-                closeQuietly(reader)
+                if (!file.name.startsWith('TEST-')) {
+                    return
+                }
+
+                try {
+                    reader = new FileReader(file)
+                    closure(reader)
+                } catch (Exception e) {
+                    println "Error reading file '${file}': ${e.message}"
+                } finally {
+                    closeQuietly(reader)
+                }
             }
         }
     }

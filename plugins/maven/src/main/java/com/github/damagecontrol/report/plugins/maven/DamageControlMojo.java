@@ -6,6 +6,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import com.github.damagecontrol.report.htmlgenerator.Report;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * @goal report
@@ -16,6 +17,11 @@ public class DamageControlMojo extends AbstractMojo {
      * @parameter default-value="target/surefire-reports"
      */
     private File testResultsFolder;
+
+    /**
+     * @parameter
+     */
+    private List<File> testResultsFolders;
 
     /**
      * @parameter default-value="src/test/groovy"
@@ -41,11 +47,13 @@ public class DamageControlMojo extends AbstractMojo {
 
         getLog().info("Damage Control, Report:");
         getLog().info("test results folder=" + testResultsFolder);
+        getLog().info("test results folder list=" + testResultsFolders);
         getLog().info("specs definition folder=" + specDefinitionsFolder);
         getLog().info("reports target folder=" + outputFolder);
 
         Report report = new Report();
         report.setTestResultsFolder(testResultsFolder);
+        report.setTestResultsFolders(testResultsFolders);
         report.setSpecDefinitionsFolder(specDefinitionsFolder);
         report.setOutputFolder(outputFolder);
         report.run();

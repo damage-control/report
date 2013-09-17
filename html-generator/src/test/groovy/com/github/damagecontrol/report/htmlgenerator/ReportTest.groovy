@@ -13,14 +13,13 @@ class ReportTest extends BaseFileHandlingSpec {
     def outputFolder
 
     def setup() {
-        specsDefinitionPackage = new File(testFolder.absolutePath + '/samples/definitions')
-
-        outputFolder = new File(testFolder.absolutePath + '/report')
+        specsDefinitionPackage = new File("${testFolder.absolutePath}/samples/definitions")
+        outputFolder = new File("${testFolder.absolutePath}/report")
 
         report = new Report(
-                testResultsFolder: testFolder,
-                specDefinitionsFolder: testFolder,
-                outputFolder: outputFolder
+            testResultsFolder: testFolder,
+            specDefinitionsFolder: testFolder,
+            outputFolder: outputFolder
         )
     }
 
@@ -33,11 +32,11 @@ class ReportTest extends BaseFileHandlingSpec {
         report.run()
 
         then:
-        new File(outputFolder.absolutePath + '/style/damage-control.css').exists()
+        new File("${outputFolder.absolutePath}/style/damage-control.css").exists()
         and:
-        new File(outputFolder.absolutePath + '/js/jquery.min.js').exists()
+        new File("${outputFolder.absolutePath}/js/jquery.min.js").exists()
         and:
-        new File(outputFolder.absolutePath + '/js/damage-control.js').exists()
+        new File("${outputFolder.absolutePath}/js/damage-control.js").exists()
     }
 
     def 'should create index file'() {
@@ -45,7 +44,22 @@ class ReportTest extends BaseFileHandlingSpec {
         report.run()
 
         then:
-        new File(outputFolder.absolutePath + '/index.html').exists()
+        new File("${outputFolder.absolutePath}/index.html").exists()
+    }
+
+    def 'should create index file when folder list is provided'() {
+        given:
+        report = new Report(
+            testResultsFolders: [testFolder],
+            specDefinitionsFolders: [testFolder],
+            outputFolder: outputFolder
+        )
+
+        when:
+        report.run()
+
+        then:
+        new File("${outputFolder.absolutePath}/index.html").exists()
     }
 
     def 'should create html file for each spec'() {
@@ -57,6 +71,6 @@ class ReportTest extends BaseFileHandlingSpec {
         report.run()
 
         then:
-        new File(outputFolder.absolutePath + '/samples.definitions.SampleSpecDefinitionTest.html').exists()
+        new File("${outputFolder.absolutePath}/samples.definitions.SampleSpecDefinitionTest.html").exists()
     }
 }

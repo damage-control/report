@@ -9,7 +9,11 @@ class Report {
     private static final JS_URL = getResource('/com/github/damagecontrol/htmlreport/statics/js/damage-control.js')
 
     def testResultsFolder
+    def testResultsFolders
+
     def specDefinitionsFolder
+    def specDefinitionsFolders
+
     def outputFolder
 
     private final collector = new TestResultsCollector()
@@ -17,11 +21,11 @@ class Report {
     private final specTemplate = new HtmlSpecTemplate()
 
     def run() {
-        new XmlFileReader(inputFolder: testResultsFolder).forEach { collector.collect(it) }
+        new XmlFileReader(inputFolders: testResultsFolderList()).forEach { collector.collect(it) }
         TestResults results = collector.results
 
         HtmlFileWriter writer = new HtmlFileWriter(outputFolder: outputFolder)
-        GroovyFileReader reader = new GroovyFileReader(inputFolder: specDefinitionsFolder)
+        GroovyFileReader reader = new GroovyFileReader(inputFolders: specDefinitionsFolderList())
 
         writer.write('index', indexTemplate.generate(results))
 
@@ -33,5 +37,29 @@ class Report {
         copyURLToFile(CSS_URL, new File(outputFolder.absolutePath + '/style/damage-control.css'))
         copyURLToFile(JQUERY_URL, new File(outputFolder.absolutePath + '/js/jquery.min.js'))
         copyURLToFile(JS_URL, new File(outputFolder.absolutePath + '/js/damage-control.js'))
+    }
+
+    private testResultsFolderList() {
+        def folders = []
+
+        if (testResultsFolder) {
+            folders.add(testResultsFolder)
+        }
+        if (testResultsFolders) {
+            folders.addAll(testResultsFolders)
+        }
+        folders
+    }
+
+    private specDefinitionsFolderList() {
+        def folders = []
+
+        if (specDefinitionsFolder) {
+            folders.add(specDefinitionsFolder)
+        }
+        if (specDefinitionsFolders) {
+            folders.addAll(specDefinitionsFolders)
+        }
+        folders
     }
 }

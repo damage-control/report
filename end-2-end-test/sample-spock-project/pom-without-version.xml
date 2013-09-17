@@ -94,15 +94,33 @@
       </plugin>
 
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.16</version>
+        <executions>
+          <execution>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>integration-test</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <groupId>com.github.damage-control.report</groupId>
         <artifactId>damage-control-maven-plugin</artifactId>
         <version>@VERSION@</version>
         <configuration>
           <skip>${skip.damage.control.report}</skip>
+          <testResultsFolders>
+            <testResultsFolder>target/surefire-reports</testResultsFolder>
+            <testResultsFolder>target/failsafe-reports</testResultsFolder>
+          </testResultsFolders>
         </configuration>
         <executions>
           <execution>
-            <phase>test</phase>
+            <phase>integration-test</phase>
             <goals>
               <goal>report</goal>
             </goals>

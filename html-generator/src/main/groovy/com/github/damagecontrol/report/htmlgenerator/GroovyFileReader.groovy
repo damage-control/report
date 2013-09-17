@@ -6,16 +6,20 @@ class GroovyFileReader {
 
     private static final String FILE_SEPARATOR = '/'
 
-    def inputFolder
+    def inputFolders
 
     def read(fullQualifiedClassName) {
         String relativeFilePath = fullQualifiedClassName.replaceAll(/\./, FILE_SEPARATOR) + '.groovy'
 
-        def groovyFile = new File(inputFolder.absolutePath + FILE_SEPARATOR + relativeFilePath)
-        if (groovyFile.exists()) {
-            readFileToString(groovyFile)
-        } else {
-            ''
+        def contents = ''
+
+        inputFolders.each { inputFolder ->
+            def groovyFile = new File(inputFolder.absolutePath + FILE_SEPARATOR + relativeFilePath)
+            if (groovyFile.exists()) {
+                contents = readFileToString(groovyFile)
+            }
         }
+
+        contents
     }
 }
