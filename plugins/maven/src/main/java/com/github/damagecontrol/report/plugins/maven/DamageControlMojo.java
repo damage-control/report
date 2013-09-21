@@ -1,41 +1,34 @@
 package com.github.damagecontrol.report.plugins.maven;
 
+import com.github.damagecontrol.report.htmlgenerator.Report;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import com.github.damagecontrol.report.htmlgenerator.Report;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
 import java.util.List;
 
-/**
- * @goal report
- */
+@Mojo(
+    name = "report",
+    requiresProject = true
+)
 public class DamageControlMojo extends AbstractMojo {
 
-    /**
-     * @parameter default-value="target/surefire-reports"
-     */
+    @Parameter(defaultValue = "target/surefire-reports")
     private File testResultsFolder;
 
-    /**
-     * @parameter
-     */
+    @Parameter
     private List<File> testResultsFolders;
 
-    /**
-     * @parameter default-value="src/test/groovy"
-     */
+    @Parameter(defaultValue = "src/test/groovy")
     private File specDefinitionsFolder;
 
-    /**
-     * @parameter default-value="target/damage-control-reports"
-     */
+    @Parameter(defaultValue = "target/damage-control-reports")
     private File outputFolder;
 
-    /**
-     * @parameter default-value="false"
-     */
+    @Parameter(defaultValue = "false")
     private boolean skip;
 
     @Override

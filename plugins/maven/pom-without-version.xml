@@ -48,6 +48,13 @@
     </dependency>
 
     <dependency>
+      <groupId>org.apache.maven.plugin-tools</groupId>
+      <artifactId>maven-plugin-annotations</artifactId>
+      <version>3.2</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
       <groupId>com.github.damage-control.report</groupId>
       <artifactId>html-generator</artifactId>
       <version>@VERSION@</version>
@@ -65,6 +72,23 @@
           <source>1.6</source>
           <target>1.6</target>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <version>3.2</version>
+        <configuration>
+          <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+        </configuration>
+        <executions>
+          <execution>
+            <id>mojo-descriptor</id>
+            <goals>
+              <goal>descriptor</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
