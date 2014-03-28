@@ -2,7 +2,7 @@ package com.github.damagecontrol.report.htmlgenerator
 
 class TestResults {
 
-    final specs = [:]
+    final specs = new TreeMap()
 
     def spec(specName) {
         specs[specName] = specs[specName] ?: new Spec(name: specName)
